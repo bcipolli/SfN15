@@ -19,25 +19,52 @@ labels = {
     'brain mass': 'brain mass (g)',
     'Dcx': 'density (N mg^{-1})',
     'O/N': 'other cells/neurons',
-    'N/A': 'neurons (mm^{-2})'}
+    'N/A': 'neurons/area (mm^{-2})',
+    'Vcx': 'grey matter volume (mm^3)'}
+
+plot_lib = 'mpl'
 
 
-def show_plot(p, lib='mpl'):
-    if lib == 'bokeh':
-        show(p)
+def set_plot_lib(lib):
+    global plot_lib
+    plot_lib = lib
 
 
-# Note that in figure 1, sleep and thickness
-# are NOT log10. Code that here, so it's clean later.
+def show_plot(p, lib=None, output_dir=None):
+    lib = lib or plot_lib
+
+    def get_fig_name(fig, fi=None):
+        default_val = 'figure' + (str(fi) if fi is not None else '')
+        return getattr(fig, 'name', default_val)
+
+    if output_dir is None:
+        if lib == 'bokeh':
+            show(p)
+    elif lib == 'mpl':
+        # Save to png
+        for fi in plt.get_fignums():
+            filename = '%s.png' % get_fig_name(plt.figure(fi), fi)
+            plt.figure(fi)
+            plt.savefig(os.path.join(output_dir, filename))
+            plt.close()
+    elif lib == 'bokeh':
+        filename = '%s.html' % get_fig_name(p)
+        output_file(os.path.join(output_dir), title=get_fig_name(p))
+
+
 def get_data(key, data):
+    # Note that in figure 1, sleep and thickness
+    # are NOT log10. Code that here, so it's clean later.
     if key in ['T', 'daily sleep']:
         return data[key]
     else:
         return np.log10(data[key])
 
 
-# Helper function to do a scatter plot and then label things.
-def scatter(xkey, ykey, data, lib='mpl'):
+def scatter(xkey, ykey, data, lib=None):
+    # Helper function to do a scatter plot and then label things.
+    lib = lib or plot_lib
+
     xvals = get_data(xkey, data=data)
     yvals = get_data(ykey, data=data)
     colors = [colormap[cls] for cls in data['Order']]
@@ -76,9 +103,12 @@ def scatter(xkey, ykey, data, lib='mpl'):
         ax = p
     return ax
 
-# Helper function to do the regression,
-# show the regression line, and show the rvalue.
-def regress_and_plot(key1, key2, data, lib='mpl'):
+
+def regress_and_plot(key1, key2, data, lib=None):
+    # Helper function to do the regression,
+    # show the regression line, and show the rvalue.
+    lib = lib or plot_lib
+
     # Select rows without NaNs
     xvals = get_data(key1, data=data)
     yvals = get_data(key2, data=data)
@@ -100,13 +130,15 @@ def regress_and_plot(key1, key2, data, lib='mpl'):
     else:
         # ax.ray(x=[0], y=[res.intercept], length=0, angle=np.pi/2-np.arctan(res.slope), line_width=1)
         ax.line(xlims, res.slope * xlims + res.intercept)
-        ax.text(x=xlims[0] if res.rvalue > 0 else 0.8*xlims[1],
+        ax.text(x=xlims[0] if res.rvalue > 0 else xlims[1] - 0.2*(xlims[1] - xlims[0]),
                 y=0.85*ylims[1], text=[lbl])
     return ax
 
 
-# Make a grid of plots; a bit cleaner than just plotting one-by-one.
-def grid_it(all_xkeys, data, fn=regress_and_plot, lib='mpl'):
+def grid_it(all_xkeys, data, fn=regress_and_plot, lib=None):
+    # Make a grid of plots; a bit cleaner than just plotting one-by-one.
+    lib = lib or plot_lib
+
     all_xkeys = np.asarray(all_xkeys).T
     n_rows, n_cols = all_xkeys.shape
     for pi in range(all_xkeys.size):
@@ -130,13 +162,14 @@ def grid_it(all_xkeys, data, fn=regress_and_plot, lib='mpl'):
         g.plot_width = g.plot_height = 1200
         return g
 
-# I'm interested in the PCA analysis.
-# This function allows me to select some of the data,
-# run PCA with it, and get some summary info.
-#
-# I can choose to zscore each column (to standardize scores)
-# n_components is 2 by default, as that's what's in the paper.
+
 def do_pca(cols, data, zscore=True, n_components=2):
+    # I'm interested in the PCA analysis.
+    # This function allows me to select some of the data,
+    # run PCA with it, and get some summary info.
+    #
+    # I can choose to zscore each column (to standardize scores)
+    # n_components is 2 by default, as that's what's in the paper.
     import sklearn.decomposition
     pca = sklearn.decomposition.PCA(whiten=False, n_components=n_components or len(cols))
 
@@ -155,8 +188,8 @@ def do_pca(cols, data, zscore=True, n_components=2):
     print ''
 
 
-# We are interested in one value. What about linear regression?
 def lin_regress(cols, predict_col, data, zscore=True):
+    # We are interested in one value. What about linear regression?
     import sklearn.linear_model
     lm = sklearn.linear_model.LinearRegression(normalize=False)
     lm_data = np.asarray([get_data(col, data=data) for col in cols if cols != predict_col]).T
@@ -174,4 +207,3 @@ def lin_regress(cols, predict_col, data, zscore=True):
 
     res = lm.fit(lm_data, yvals)
     return res, lm
-
