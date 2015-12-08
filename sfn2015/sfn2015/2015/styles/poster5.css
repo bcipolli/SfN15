@@ -1,0 +1,254 @@
+/* poster body */
+body {
+    x-padding: 0;
+    margin: 0;
+    font-size: 24px;
+}
+#poster, #poster {
+    width: 1920px;
+    height: 1080;
+    background-color: #ffe;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+/* poster title */
+.poster-title, #poster-footer, .section {
+    background-color: #7af;
+}
+
+/* poster title */
+.poster-title {
+    padding: 10px 10px 0px 10px;
+    width: 100%;
+    height: 185px;
+    box-sizing: border-box;
+    text-align: center;
+    border-bottom: 5px dotted black;
+    overflow: hidden;
+}
+
+.poster-title .content {
+    width: 1100px;
+    float: left;
+    padding: 0px 5px 0px 205px;
+    box-sizing: border-box;
+}
+
+.poster-title .content .title {
+    font-size: 36px;
+    padding: 0px 100px 10px 100px;
+    float: left;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.poster-title .content .authors {
+    font-size: 28px;
+}
+
+.poster-title .content .affiliations {
+    font-size: 12pt;
+}
+
+.poster-title .logo img {
+    margin-left: -1px;
+    max-width: 400px;
+    max-height: 160px;
+    float: left;
+}
+
+.poster-title .spacer {
+    width: 348px;
+    height: 170px; /* why? */
+    float: left;
+    box-sizing: border-box;
+}
+
+.poster-title .qrcode {
+    margin-left: 65px;
+    width: 350px;
+    height: 130px;
+}
+.poster-title .qrcode img {
+    max-width: 100px;
+    max-height: 100px;
+    box-sizing: border-box;
+    margin: 0px auto 0px auto;
+}
+
+.download-text {
+    font-size: 20px;
+    font-weight: bold;
+    overflow: hidden;
+    hieght: 20px;
+}
+
+
+
+/* poster summary content */
+#poster .section {
+    width: 850px;
+    height: 325px;
+    padding-top: 10px;
+    margin: 60px 50px 80px 50px;
+    box-sizing: border-box;
+    overflow:hidden;
+    border-radius: 25px;
+    box-shadow: 20px 20px 10px #888888;
+}
+
+#poster .section-button {
+    width: 100%;
+    height: 400px;
+    margin: 0px;
+    box-sizing: border-box;
+    display: block;
+    overflow:hidden;
+    border-radius: 0px;
+    box-shadow: none;
+}
+
+#poster .section .number {
+    position: relative;
+    left: 20px;
+    top: 10px;
+    font-size: 24px;
+    float: left;
+}
+
+#poster .section .title {
+    font-size: 34px;
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+    padding-top: 10px;
+}
+
+#poster .section .blurb {
+    padding: 10px 50px 0px 50px;
+    box-sizing: border-box;
+    font-size: 18pt;
+}
+
+#poster .section-button .blurb {
+    padding: 20px;
+    font-size: 16pt;
+}
+
+#poster .section-button .title {
+    font-size: 28px;
+    margin-bottom: -10px;
+    padding: 5px 0px 0px 0px;
+    box-sizing: border-box;
+}
+
+#poster .section-button .number {
+    position: relative;
+    left: 3px;
+    top: 5px;
+    display: none;
+}
+
+/* poster main content */
+.section-buttons {
+    width: 15%;
+    float: left;
+    box-sizing: border-box;
+}
+
+.section-buttons-expanded {
+    width: 50%;
+}
+
+.section-buttons-expanded .section {
+    background-color: #7bf;
+}
+
+.main-content {
+    width: 70%;
+    float: left;
+    padding: 0px 25px 0px 25px;
+    height: 795px;
+    box-sizing: border-box;
+}
+.short-blurb {
+    display: none;
+}
+
+.main-content-collapsed {
+    width: 0%;
+    padding: 0px;
+}
+
+.section-summary-on, .main-content-on {
+    background-color:transparent;
+    box-sizing: border-box;
+}
+.section-summary-left-on {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.section-summary-right-on {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.section:hover {
+    background-color: #9cf;
+    cursor: pointer;
+}
+
+.section-summary-on:hover {
+    background-color: transparent;
+}
+
+.section-details {
+    display: none;
+}
+
+.content-pane {
+    width: 1300px;
+    height: 775px;
+    overflow: scroll;
+}
+.content-pane div {
+    float: left;
+    margin: 0px;
+    padding: 0px;
+}
+
+.section-button ul {
+    position: relative;
+    left: -10px;
+    top: -5px;
+}
+
+.section-buttons li {
+    border-radius: 15px;
+    padding: 10px;
+    margin: -10px;
+}
+
+.section-buttons li a {
+    color: black;
+    text-decoration: none;
+}
+
+.section-buttons li:hover {
+    background-color: yellow;
+}
+
+/* poster footer */
+#poster-footer {
+    width: 100%;
+    height: 98px;
+    padding: 5px;
+    float: left;
+    box-sizing: border-box;
+    display: none;
+    border-top: 5px dotted black;
+    z-index: 100;
+    position: relative;
+    top: -3px;
+}
