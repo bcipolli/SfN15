@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn
 import scipy.stats
-from bokeh.plotting import figure, show, output_notebook
+from bokeh.plotting import figure, show
 
 # Create a colormap, as used in Figure 2
 colormap = dict(Primate='red', Eulipotyphla='yellow', Glires='green',

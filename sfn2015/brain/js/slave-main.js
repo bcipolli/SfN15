@@ -8,8 +8,8 @@ app.controller('NavigateController', ['$scope', function($scope) {
         prefix: 'MRI_cort_area.ctx.',
         measure: 'area'
     };
-    $scope.manifest_url = build_manifest_url('data', $scope.metadata);
-    $scope.data_url = build_data_url('data', $scope.metadata);
+    $scope.manifest_url = build_manifest_url('http://cseweb.ucsd.edu/~bcipolli/docs/posters/SfN2015/brain/data', $scope.metadata);
+    $scope.data_url = build_data_url('http://cseweb.ucsd.edu/~bcipolli/docs/posters/SfN2015/brain/data', $scope.metadata);
 
     // Create the right hemi brain
     $scope.plotter = new HemiPlotter({
@@ -28,8 +28,8 @@ app.controller('NavigateController', ['$scope', function($scope) {
     $scope.$watchCollection("metadata", function( newValue, oldValue ) {
         $scope.metadata.prefix = measure2prefix(newValue.measure, newValue.atlas);
 
-        manifest_url = build_manifest_url('data', $scope.metadata);
-        data_url = build_data_url('data', $scope.metadata);
+        manifest_url = build_manifest_url('http://cseweb.ucsd.edu/~bcipolli/docs/posters/SfN2015/brain/data', $scope.metadata);
+        data_url = build_data_url('http://cseweb.ucsd.edu/~bcipolli/docs/posters/SfN2015/brain/data', $scope.metadata);
         console.log(data_url)
         if (manifest_url != $scope.manifest_url) {
             $scope.manifest_url = manifest_url;

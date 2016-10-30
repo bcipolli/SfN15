@@ -77,8 +77,8 @@
                 measure: 'area',
                 component: 0
             };
-            $scope.manifest_url = build_manifest_url('data', $scope.metadata);
-            $scope.data_url = build_data_url('data', $scope.metadata);
+            $scope.manifest_url = build_manifest_url('http://cseweb.ucsd.edu/~bcipolli/docs/posters/SfN2015/brain/data', $scope.metadata);
+            $scope.data_url = build_data_url('http://cseweb.ucsd.edu/~bcipolli/docs/posters/SfN2015/brain/data', $scope.metadata);
 
             // Create the right hemi brain
             $scope.stats_brain = new Brain({
@@ -98,8 +98,8 @@
             // Use the relatively new watchCollection().
             $scope.$watchCollection("metadata", function( newValue, oldValue ) {
                 $scope.metadata.prefix = measure2prefix(newValue.measure, newValue.atlas);
-                $scope.manifest_url = build_manifest_url('data', newValue);
-                $scope.data_url = build_data_url('data', newValue);
+                $scope.manifest_url = build_manifest_url('http://cseweb.ucsd.edu/~bcipolli/docs/posters/SfN2015/brain/data', newValue);
+                $scope.data_url = build_data_url('http://cseweb.ucsd.edu/~bcipolli/docs/posters/SfN2015/brain/data', newValue);
                 $scope.stats_brain.loadBrain({
                     manifest_url: $scope.manifest_url,
                     data_url: $scope.data_url

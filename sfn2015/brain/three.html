@@ -95,7 +95,7 @@ Design:
                 prefix: 'Destrieux_area.',
                 measure: 'area'
             };
-            $scope.manifest_url = build_manifest_url('data', $scope.metadata);
+            $scope.manifest_url = build_manifest_url('http://cseweb.ucsd.edu/~bcipolli/docs/posters/SfN2015/brain/data', $scope.metadata);
 
             // Create the right hemi brain
             $scope.plotter = new HemiPlotter({
@@ -111,7 +111,7 @@ Design:
             // Use the relatively new watchCollection().
             $scope.$watchCollection("metadata", function( newValue, oldValue ) {
                 $scope.metadata.prefix = measure2prefix(newValue.measure, newValue.atlas);
-                var manifest_url = build_manifest_url('data', $scope.metadata);
+                var manifest_url = build_manifest_url('http://cseweb.ucsd.edu/~bcipolli/docs/posters/SfN2015/brain/data', $scope.metadata);
                 console.log(manifest_url, 1);
                 if (manifest_url != $scope.manifest_url) {
                     $scope.manifest_url = manifest_url;
